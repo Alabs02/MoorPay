@@ -25,11 +25,14 @@ class AppText extends StatelessWidget {
     return Text(
       '$copy',
       textAlign: textAlign,
+      overflow: TextOverflow.ellipsis,
+      softWrap: true,
       style: GoogleFonts.inter(
-          color: color,
-          fontSize: size,
-          fontWeight: weight,
-          letterSpacing: tracking),
+        color: color,
+        fontSize: size,
+        fontWeight: weight,
+        letterSpacing: tracking,
+      ),
     );
   }
 }

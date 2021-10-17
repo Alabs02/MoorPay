@@ -27,6 +27,14 @@ class _HomeScreenState extends State<HomeScreen> {
     return result;
   }
 
+  String truncateText(String copy) {
+    if (copy.length > 12) {
+      return copy.replaceRange(10, copy.length, '...');
+    } else {
+      return copy;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
@@ -316,27 +324,29 @@ class _HomeScreenState extends State<HomeScreen> {
             ),
 
             Container(
-              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding/2),
+              padding: EdgeInsets.symmetric(horizontal: kDefaultPadding / 2),
               child: Flex(
                 direction: Axis.vertical,
+                mainAxisSize: MainAxisSize.max,
                 children: List.generate(transactions.length, (index) {
                   return Container(
+                    width: size.width,
                     padding: EdgeInsets.all(kDefaultPadding),
-                    margin: EdgeInsets.only(bottom: kDefaultPadding/2),
+                    margin: EdgeInsets.only(bottom: kDefaultPadding / 2),
                     decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(15.0),
-                      boxShadow: [
-                        BoxShadow(
-                          color: kBlackColor.withOpacity(0.15),
-                          blurRadius: 10.0,
-                          offset: Offset(2.0, 2.0),
-                        ),
-                      ]
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(15.0),
+                        boxShadow: [
+                          BoxShadow(
+                            color: kBlackColor.withOpacity(0.15),
+                            blurRadius: 10.0,
+                            offset: Offset(2.0, 2.0),
+                          ),
+                        ]),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.max,
                       children: <Widget>[
                         Row(
                           crossAxisAlignment: CrossAxisAlignment.center,
@@ -345,22 +355,23 @@ class _HomeScreenState extends State<HomeScreen> {
                             Container(
                               height: 30.0,
                               width: 50.0,
-                              margin: EdgeInsets.only(right: kDefaultPadding/2),
+                              margin:
+                                  EdgeInsets.only(right: kDefaultPadding / 2),
                               decoration: BoxDecoration(
                                 image: DecorationImage(
-                                  image: AssetImage('assets/images/${transactions[index]?.brand}'),
+                                  image: AssetImage(
+                                      'assets/images/${transactions[index]?.brand}'),
                                   fit: BoxFit.contain,
                                 ),
                                 borderRadius: BorderRadius.circular(5.0),
                               ),
                             ),
-                  
                             Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
                               mainAxisAlignment: MainAxisAlignment.start,
                               children: <Widget>[
                                 AppText(
-                                  copy: '${transactions[index].beneficiary}',
+                                  copy: truncateText(transactions[index].beneficiary),
                                   size: 18.0,
                                   weight: FontWeight.w700,
                                   tracking: 0.5,
@@ -376,7 +387,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           ],
                         ),
                         AppText(
-                          copy: '-\$${transactions[index].amount}',
+                          copy: '\$${transactions[index].amount}',
                           weight: FontWeight.w800,
                           color: kPrimaryColor,
                           size: 16.0,
