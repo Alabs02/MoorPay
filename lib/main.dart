@@ -12,6 +12,7 @@ class MoPay extends StatelessWidget {
     return MaterialApp(
       theme: ThemeData(
         primaryColor: kPrimaryColor,
+        accentColor: kAccentColor,
       ),
       home: HomeScreen(),
       debugShowCheckedModeBanner: false,
